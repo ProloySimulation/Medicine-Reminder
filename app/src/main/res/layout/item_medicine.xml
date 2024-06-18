@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="medicineWithReminders"
+            type="com.proloy.medicinereminder.database.data.MedicineWithReminders" />
+        <variable
+            name="reminderAdapter"
+            type="com.proloy.medicinereminder.adapter.ReminderAdapter" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="@{medicineWithReminders.medicine.name}" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{medicineWithReminders.medicine.dose}" />
+
+            <!-- RecyclerView for reminders -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/remindersRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:visibility="@{medicineWithReminders.reminders.isEmpty() ? View.GONE : View.VISIBLE}" />
+
+            <!-- Handle case when no reminders -->
+            <TextView
+                android:id="@+id/noRemindersTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No reminders"
+                android:visibility="@{medicineWithReminders.reminders.isEmpty() ? View.VISIBLE : View.GONE}" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.cardview.widget.CardView>
+
+
+</layout>
